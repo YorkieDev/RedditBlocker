@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reddit Blocker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0a0908;
+      --paper: #f4f1de;
+      --rust: #c44536;
+      --gold: #d4a244;
+      --sage: #3d5a45;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 280px;
+      font-family: 'Playfair Display', Georgia, serif;
+      background: var(--paper);
+      color: var(--ink);
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(10, 9, 8, 0.01) 2px,
+          rgba(10, 9, 8, 0.01) 4px
+        );
+      pointer-events: none;
+    }
+
+    .header {
+      text-align: center;
+      padding: 20px 20px 15px;
+      border-bottom: 2px solid var(--ink);
+      position: relative;
+    }
+
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 20px;
+      right: 20px;
+      height: 1px;
+      background: var(--ink);
+    }
+
+    .masthead {
+      font-size: 8px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--sage);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 300;
+      margin-bottom: 8px;
+    }
+
+    .title {
+      font-size: 26px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .status-block {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px;
+      border: 1px solid var(--ink);
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    .status-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--ink);
+      opacity: 0.3;
+      transition: all 0.3s ease;
+    }
+
+    .status-dot.active {
+      background: var(--sage);
+      opacity: 1;
+      box-shadow: 0 0 0 3px rgba(61, 90, 69, 0.2);
+    }
+
+    .status-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* Custom toggle */
+    .toggle {
+      position: relative;
+      width: 44px;
+      height: 22px;
+      cursor: pointer;
+    }
+
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-track {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--ink);
+      opacity: 0.2;
+      transition: all 0.3s;
+    }
+
+    .toggle-thumb {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 16px;
+      height: 16px;
+      background: var(--ink);
+      transition: all 0.3s;
+    }
+
+    input:checked + .toggle-track {
+      background: var(--sage);
+      opacity: 1;
+    }
+
+    input:checked ~ .toggle-thumb {
+      left: 25px;
+      background: var(--paper);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .stat-box {
+      text-align: center;
+      padding: 12px 10px;
+      border: 1px solid var(--ink);
+    }
+
+    .stat-num {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--rust);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-top: 6px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 12px;
+      border-top: 1px solid var(--ink);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--sage);
+      letter-spacing: 0.05em;
+    }
+
+    .ornament {
+      font-size: 14px;
+      margin: 0 5px;
+      opacity: 0.4;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="masthead">Est. 2025 • Productivity Tool</div>
+    <h1 class="title">Reddit Blocker</h1>
+  </div>
+
+  <div class="content">
+    <div class="status-block">
+      <div class="status-left">
+        <div class="status-dot" id="statusDot"></div>
+        <span class="status-text" id="statusText">Inactive</span>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" id="toggleSwitch">
+        <div class="toggle-track"></div>
+        <div class="toggle-thumb"></div>
+      </label>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-num" id="blockedCount">0</div>
+        <div class="stat-label">Blocked</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" id="timeSaved">0</div>
+        <div class="stat-label">Min Saved</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span class="ornament">§</span>
+    Stay Focused
+    <span class="ornament">§</span>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
