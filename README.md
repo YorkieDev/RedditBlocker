@@ -9,6 +9,13 @@ A Chrome extension that blocks access to Reddit.
 - 🎛️ **Toggle On/Off**: Easy toggle switch in the popup to enable/disable blocking
 - 💪 **Motivational Messages**: Shows inspirational quotes on the blocked page
 
+## Screenshots
+
+<img width="2559" height="1232" alt="image" src="https://github.com/user-attachments/assets/249ff10e-1234-4087-ad8f-862a7f63004c" />
+<img width="351" height="400" alt="image" src="https://github.com/user-attachments/assets/681a6681-a37c-4a7a-9985-23318458fc07" />
+
+
+
 ## Installation
 
 ### Method 1: Load as Unpacked Extension (Developer Mode)
@@ -42,36 +49,11 @@ Or simply create any 16x16, 48x48, and 128x128 pixel PNG images named `icon16.pn
 4. Try visiting reddit.com - you'll see the blocked page!
 
 
-## Files Structure
-
-```
-redditblocker/
-├── manifest.json       # Extension configuration
-├── background.js       # Service worker for blocking
-├── content.js          # Script to hide Google search results
-├── content.css         # Styles for hiding results
-├── popup.html          # Extension popup UI
-├── popup.js            # Popup functionality
-├── blocked.html        # Page shown when Reddit is blocked
-├── rules.json          # Declarative net request rules
-├── icons/              # Extension icons
-│   ├── icon16.png
-│   ├── icon48.png
-│   └── icon128.png
-└── README.md           # This file
-```
-
 ## How It Works
 
 ### Blocking Reddit
 The extension uses Chrome's Declarative Net Request API to intercept and redirect any requests to Reddit domains before they're made. This is efficient and works even in the background.
 
-### Hiding Search Results
-A content script runs on Google search pages and:
-1. Scans all search results for Reddit links
-2. Hides any results containing reddit.com or redd.it links
-3. Uses a MutationObserver to handle dynamically loaded content
-4. Reports hidden results count back to the extension
 
 ## Privacy
 
