@@ -1,11 +1,10 @@
 # Reddit Blocker - Chrome Extension
 
-A Chrome extension that blocks access to Reddit and hides all Reddit results from Google searches.
+A Chrome extension that blocks access to Reddit.
 
 ## Features
 
 - 🛑 **Blocks Reddit Access**: Automatically redirects any attempt to visit reddit.com, old.reddit.com, new.reddit.com, or redd.it to a motivational blocked page
-- 🔍 **Hides Google Search Results**: Removes all Reddit-related results from Google searches
 - 📊 **Statistics Tracking**: Tracks how many pages have been blocked and search results hidden
 - 🎛️ **Toggle On/Off**: Easy toggle switch in the popup to enable/disable blocking
 - 💪 **Motivational Messages**: Shows inspirational quotes on the blocked page
@@ -41,7 +40,7 @@ Or simply create any 16x16, 48x48, and 128x128 pixel PNG images named `icon16.pn
 2. Use the toggle switch to enable/disable blocking
 3. View your blocking statistics in the popup
 4. Try visiting reddit.com - you'll see the blocked page!
-5. Search on Google - Reddit results will be automatically hidden
+
 
 ## Files Structure
 
@@ -80,7 +79,7 @@ This extension:
 - Does NOT collect any personal data
 - Does NOT send any data to external servers
 - Only stores statistics locally in Chrome's storage
-- Only has access to reddit.com and google.com domains
+- Only has access to reddit.com domains
 
 ## Troubleshooting
 
@@ -92,11 +91,6 @@ This extension:
 **Icons not showing?**
 - Make sure you have PNG files (not just SVG) in the icons folder
 - The files must be named exactly: `icon16.png`, `icon48.png`, `icon128.png`
-
-**Search results still showing Reddit?**
-- Refresh the Google search page
-- Make sure the extension is enabled
-- Some search result formats may not be detected - please report these!
 
 ## License
 
